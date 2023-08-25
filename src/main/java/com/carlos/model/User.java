@@ -1,6 +1,7 @@
 package com.carlos.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,16 +24,6 @@ public class User {
     private String password;
     @OneToMany(mappedBy = "user")
     private List<Item> createdItems = new ArrayList<>();
-
-    public User(int user_id, String username, String password, List<Item> createdItems) {
-        this.user_id = user_id;
-        this.username = username;
-        this.password = password;
-        this.createdItems = createdItems;
-    }
-
-    public User() {
-    }
 
     public int getUser_id() {
         return user_id;

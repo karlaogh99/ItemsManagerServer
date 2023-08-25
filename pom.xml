@@ -14,7 +14,7 @@
 	<name>proyecto</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<start-class>com.carlos.proyecto.ProyectoApplication</start-class>
+		<start-class>com.carlos.ProyectoApplication</start-class>
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
@@ -48,6 +48,19 @@
 			<artifactId>hibernate-core</artifactId>
 			<version>5.6.14.Final</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>5.4.4.Final</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>2.3.0</version>
+		</dependency>
+
 		<!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-core -->
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
