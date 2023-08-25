@@ -1,17 +1,16 @@
 package com.carlos.model;
 
-import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import jakarta.persistence.*;
+
+import java.util.*;
 
 @Entity
-@Table(name = "suplier")
+@Table(name = "supplier")
 public class Supplier {
     @Id
-    @Column(name = "suplier_id", unique = true, nullable = false )
+    @Column(name = "supplier_id", unique = true, nullable = false )
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long suplier_id;
+    private Long supplier_id;
 
     @Column(name = "name", nullable = true)
     private String name;
@@ -19,19 +18,19 @@ public class Supplier {
     @Column(name = "country", nullable = true)
     private String country;
 
-    @ManyToMany(mappedBy = "suppliers")
-    private Set<Item> items = new HashSet<>();
+    @ManyToMany(mappedBy = "supplier")
+    private List<Item> items = new ArrayList<>();
 
     @Column(name = "creation_date")
     private Date creation_date;
 
 
-    public Long getSuplier_id() {
-        return suplier_id;
+    public Long getSupplier_id() {
+        return supplier_id;
     }
 
     public void setSuplier_id(Long suplier_id) {
-        this.suplier_id = suplier_id;
+        this.supplier_id = suplier_id;
     }
 
     public String getName() {
@@ -50,21 +49,14 @@ public class Supplier {
         this.country = country;
     }
 
-    public Set<Item> getItems() {
+    public List<Item> getItems() {
         return items;
     }
 
-    public void setItems(Set<Item> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
-    public void addItems(Item item){
-        if(item != null){
-            if(this.items == null){
-                this.items = new HashSet<Item>();
-            }
-            this.items.add(item);
-        }
-    }
+
 
     public Date getCreation_date() {
         return creation_date;

@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "\"user\"")
 public class User {
     @Id
     @Column(name = "user_id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int user_id;
 
 
@@ -22,7 +22,7 @@ public class User {
 
     @Column(name = "password", unique = true, nullable = false)
     private String password;
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user_id")
     private List<Item> createdItems = new ArrayList<>();
 
     public int getUser_id() {

@@ -1,6 +1,6 @@
 package com.carlos.model;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.Set;
 @Table(name = "item")
 public class Item {
     @Id
-    @Column(name = "id", unique = true, nullable = false )
+    @Column(name = "item_id", unique = true, nullable = false )
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long item_id;
     @Column(name = "item_code", unique = true, nullable = false)
@@ -18,21 +18,23 @@ public class Item {
 
     @Column(name = "price", unique = false, nullable = true)
     private double price;
+    @Column(name = "description", unique = false, nullable = false)
+    private String description;
 
     @Column(name = "state", unique = false, nullable = true)
     private StateEnum state;
 
-    @ManyToMany
-    @JoinTable(name = "item_supplier",
-                joinColumns = @JoinColumn(name = "item_id"),
-                inverseJoinColumns = @JoinColumn(name = "supplier_id"))
-    private Set<Supplier> supplier = new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(name = "item_supplier", joinColumns = @JoinColumn(name = "item_id", referencedColumnName = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "supplier_id", referencedColumnName = "supplier_id")
+    )
+    private List<Supplier> supplier = new ArrayList<>();
 
     @OneToMany(mappedBy = "item")
     private List<PriceReduction> priceReductions = new ArrayList<>();
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "user_id ")
+    private User user_id ;
 
     public Long getItem_id() {
         return item_id;
@@ -66,11 +68,11 @@ public class Item {
         this.state = state;
     }
 
-    public Set<Supplier> getSupplier() {
+    public List<Supplier> getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(Set<Supplier> supplier) {
+    public void setSupplier(List<Supplier> supplier) {
         this.supplier = supplier;
     }
 
@@ -83,10 +85,18 @@ public class Item {
     }
 
     public User getUser() {
-        return user;
+        return user_id;
     }
 
     public void setUser(User user) {
-        this.user = user;
+        this.user_id = user;
+    }
+
+    public String getDescripcion() {
+        return description;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.description = descripcion;
     }
 }
