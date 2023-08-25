@@ -9,7 +9,7 @@ import java.util.Set;
 @Table(name = "suplier")
 public class Supplier {
     @Id
-    @Column(name = "id", unique = true, nullable = false )
+    @Column(name = "suplier_id", unique = true, nullable = false )
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long suplier_id;
 

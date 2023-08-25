@@ -7,11 +7,11 @@ import java.util.List;
 
 @Entity
 @Table(name = "user")
-public class User implements Serializable {
+public class User {
     @Id
-    @Column(name = "id", unique = true, nullable = false)
+    @Column(name = "user_id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long user_id;
+    private int user_id;
 
 
 
@@ -24,11 +24,21 @@ public class User implements Serializable {
     @OneToMany(mappedBy = "user")
     private List<Item> createdItems = new ArrayList<>();
 
-    public Long getUser_id() {
+    public User(int user_id, String username, String password, List<Item> createdItems) {
+        this.user_id = user_id;
+        this.username = username;
+        this.password = password;
+        this.createdItems = createdItems;
+    }
+
+    public User() {
+    }
+
+    public int getUser_id() {
         return user_id;
     }
 
-    public void setUser_id(Long user_id) {
+    public void setUser_id(int user_id) {
         this.user_id = user_id;
     }
 
