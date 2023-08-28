@@ -15,4 +15,9 @@ public class UserServiceImple implements UserService {
     public List<User> getAllUser() {
         return repository.findAll();
     }
+
+    @Override
+    public void save(User user) {
+        repository.save(user);
+    }
 }

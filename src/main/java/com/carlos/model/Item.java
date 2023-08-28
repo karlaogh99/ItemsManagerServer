@@ -20,7 +20,7 @@ public class Item {
     private double price;
     @Column(name = "description", unique = false, nullable = false)
     private String description;
-
+    @Enumerated(EnumType.STRING)
     @Column(name = "state", unique = false, nullable = true)
     private StateEnum state;
 
