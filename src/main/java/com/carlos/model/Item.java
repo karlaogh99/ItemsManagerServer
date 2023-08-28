@@ -11,7 +11,7 @@ import java.util.Set;
 public class Item {
     @Id
     @Column(name = "item_id", unique = true, nullable = false )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long item_id;
     @Column(name = "item_code", unique = true, nullable = false)
     private int item_code;
@@ -96,7 +96,7 @@ public class Item {
         return description;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.description = descripcion;
+    public void setDescripcion(String description) {
+        this.description = description;
     }
 }

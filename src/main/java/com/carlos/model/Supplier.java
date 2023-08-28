@@ -9,7 +9,7 @@ import java.util.*;
 public class Supplier {
     @Id
     @Column(name = "supplier_id", unique = true, nullable = false )
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long supplier_id;
 
     @Column(name = "name", nullable = true)
