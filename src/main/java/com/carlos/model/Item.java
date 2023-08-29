@@ -1,10 +1,8 @@
 package com.carlos.model;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+
+import java.util.*;
 
 @Entity
 @Table(name = "item")
@@ -32,6 +30,33 @@ public class Item {
 
     @OneToMany(mappedBy = "item")
     private List<PriceReduction> priceReductions = new ArrayList<>();
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Date getCreation_date() {
+        return creation_date;
+    }
+
+    public void setCreation_date(Date creation_date) {
+        this.creation_date = creation_date;
+    }
+
+    public User getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(User user_id) {
+        this.user_id = user_id;
+    }
+
+    @Column(name = "creation_date", nullable = false)
+    private Date creation_date ;
     @ManyToOne
     @JoinColumn(name = "user_id ")
     private User user_id ;
