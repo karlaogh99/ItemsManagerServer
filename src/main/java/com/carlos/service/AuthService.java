@@ -9,6 +9,10 @@ import com.carlos.model.User;
 import com.carlos.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +25,21 @@ public class AuthService {
     private final JwtService jwtService;
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
+    private final AuthenticationManager authenticationManager;
     private UserRepository userRepository;
     public AuthResponse login( LoginRequest request){
-        return null;
+        try{
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+            UserDetails user = userService.findByUsername(request.getUsername()).orElseThrow();
+            String token = jwtService.getToken(user);
+            return AuthResponse.builder()
+                    .token(token)
+                    .build();
+        } catch (AuthenticationException e) {
+            System.out.println(e);
+            throw new RuntimeException(e);
+        }
+
     }
     public AuthResponse register( RegisterRequest request){
         User usuario = User.builder()
