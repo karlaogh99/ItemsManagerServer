@@ -30,13 +30,12 @@ public class SecurityConfig {
                         sessionManager
                                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)
-                .addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
+                //.addFilterBefore(jwtAuthenticationFilter, BasicAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authRequest ->
                         authRequest
                                 .requestMatchers(new AntPathRequestMatcher("/auth/*")).permitAll()
                                 .requestMatchers(new AntPathRequestMatcher("/h2-console/*")).permitAll()
-
                                 .anyRequest().authenticated()
                         );
         http.headers(headers -> headers.frameOptions(frameOptions->frameOptions.disable()));

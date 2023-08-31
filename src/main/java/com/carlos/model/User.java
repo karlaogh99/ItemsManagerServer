@@ -1,5 +1,7 @@
 package com.carlos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +36,8 @@ public class User implements UserDetails {
     @Column(name = "role", nullable = false)
     private Role role;
     @OneToMany(mappedBy = "user_id")
+    //@JsonManagedReference(value = "user_id11")
+    @JsonIgnore
     private List<Item> createdItems = new ArrayList<>();
 
     public int getUser_id() {

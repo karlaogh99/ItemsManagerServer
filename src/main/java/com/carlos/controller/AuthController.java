@@ -2,11 +2,14 @@ package com.carlos.controller;
 
 
 import com.carlos.config.AuthResponse;
+import com.carlos.config.JwtService;
 import com.carlos.service.AuthService;
 import com.carlos.config.LoginRequest;
 import com.carlos.config.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
     private final AuthService authService;
-
+    private final UserDetailsService userDetailsService;
+    private final JwtService jwtService;
     @PostMapping(value = "login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
+
         return ResponseEntity.ok(authService.login(request));
     }
     @PostMapping(value = "register")

@@ -1,5 +1,7 @@
 package com.carlos.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Date;
 
@@ -7,52 +9,53 @@ import java.util.Date;
 @Table(name = "PriceReduction")
 public class PriceReduction {
     @Id
-    @Column(name = "priceReduction_id", unique = true, nullable = false )
+    @Column(name = "reduction_id", unique = true, nullable = false )
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long priceReduction_id;
+    private int reduction_id;
 
-    @Column(name = "reducedPrice", nullable = false)
-    private Double reducedPrice ;
+    @Column(name = "reduced_price", nullable = false)
+    private Double reduced_price ;
 
-    @Column(name = "startDate", nullable = false)
-    private Date startDate ;
-    @Column(name = "endDate", nullable = false)
-    private Date endDate ;
+    @Column(name = "start_date", nullable = false)
+    private Date start_date ;
+    @Column(name = "end_date", nullable = false)
+    private Date end_date ;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "item_id", nullable = false)
+    @JsonBackReference(value ="priceReductions")
     private Item item;
 
-    public Long getPriceReduction_id() {
-        return priceReduction_id;
+    public int getPriceReduction_id() {
+        return reduction_id;
     }
 
-    public void setPriceReduction_id(Long priceReduction_id) {
-        this.priceReduction_id = priceReduction_id;
+    public void setPriceReduction_id(int priceReduction_id) {
+        this.reduction_id = priceReduction_id;
     }
 
     public Double getReducedPrice() {
-        return reducedPrice;
+        return reduced_price;
     }
 
     public void setReducedPrice(Double reducedPrice) {
-        this.reducedPrice = reducedPrice;
+        this.reduced_price = reducedPrice;
     }
 
     public Date getStartDate() {
-        return startDate;
+        return start_date;
     }
 
     public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+        this.start_date = startDate;
     }
 
     public Date getEndDate() {
-        return endDate;
+        return end_date;
     }
 
     public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+        this.end_date = endDate;
     }
 
     public Item getItem() {
