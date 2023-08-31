@@ -8,4 +8,6 @@ import java.util.List;
 @Service
 public interface ItemService {
     public List<Item> getAllItem();
+
+    public Item save(Item item);
 }

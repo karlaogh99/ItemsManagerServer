@@ -13,13 +13,16 @@ public class ItemServiceImple implements ItemService {
 
     @Override
     public List<Item> getAllItem() {
-        System.out.println("llega service");
-
         try {
         return itemRepository.findAll();
     }catch (Exception e){
         System.out.println(e);
         throw new RuntimeException(e);
     }
+    }
+
+    @Override
+    public Item save(Item item) {
+        return itemRepository.save(item);
     }
 }

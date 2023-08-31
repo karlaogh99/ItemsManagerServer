@@ -22,8 +22,7 @@ public class Supplier {
     private String country;
 
     @ManyToMany(mappedBy = "supplier")
-    @JsonManagedReference(value = "itemsup")
-
+    @JsonIgnore
     private List<Item> items = new ArrayList<>();
 
 
