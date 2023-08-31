@@ -26,4 +26,9 @@ public class ItemSupplierServiceImple implements ItemSupplierService {
 
         return suppliers;
     }
+
+    @Override
+    public ItemSupplier save(ItemSupplier itemSupplier) {
+        return itemSupplierRepository.save(itemSupplier);
+    }
 }

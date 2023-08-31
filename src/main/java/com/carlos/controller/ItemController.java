@@ -1,11 +1,9 @@
 package com.carlos.controller;
 
-import com.carlos.model.Item;
-import com.carlos.model.StateEnum;
-import com.carlos.model.Supplier;
-import com.carlos.model.User;
+import com.carlos.model.*;
 import com.carlos.service.ItemService;
 import com.carlos.service.ItemSupplierService;
+import com.carlos.service.SupplierService;
 import com.carlos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +24,8 @@ public class ItemController {
     ItemService service;
     @Autowired
     UserService userService;
+    @Autowired
+    SupplierService supplierService;
     @Autowired
     private ItemSupplierService itemSupplierService;
     @GetMapping("/allItems")
@@ -49,10 +49,25 @@ public class ItemController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PutMapping("/updateitems/{item_id}")
+    public ResponseEntity<?> updateItems(@PathVariable int item_id,@RequestBody Item updatedItem ) {
+        try {
+            Item existingItem = service.findById(item_id).get();
+            existingItem.setDescription(updatedItem.getDescription());
+            existingItem.setPrice(updatedItem.getPrice());
+
+            Item updatedItemsave = service.save(existingItem);
+
+            return ResponseEntity.ok(updatedItemsave);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Error creating item");
+        }
+    }
+
+
     @PostMapping("/creates")
     public ResponseEntity<?> createNewItem(@RequestBody Item item) {
         try {
-            // Verifica si los campos obligatorios están presentes en el objeto Item
             if (item.getDescription() == null || item.getState() == null) {
                 return ResponseEntity.badRequest().body("Missing required fields");
             }
@@ -73,6 +88,16 @@ public class ItemController {
         }
     }
 
+    @PostMapping("/associateSupplier/{item_id}/{supplier_id}")
+    public ItemSupplier assignSupplier(@PathVariable int item_id, @PathVariable int supplier_id){
+        Item item = service.findById(item_id).get();
+        Supplier supplier = supplierService.findById(supplier_id).get();
+        ItemSupplier itemSupplier = new ItemSupplier();
+        itemSupplier.setItem(item);
+        itemSupplier.setSupplier(supplier);
+        ItemSupplier newISup = itemSupplierService.save(itemSupplier);
+        return newISup;
+    }
     @GetMapping("/messages")
 
     public ResponseEntity<List<String>> messages(){

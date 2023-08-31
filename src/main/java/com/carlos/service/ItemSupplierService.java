@@ -10,4 +10,5 @@ import java.util.List;
 @Service
 public interface ItemSupplierService {
     List<Supplier> findByItemItemId(int item_id);
+    ItemSupplier save(ItemSupplier itemSupplier);
 }
