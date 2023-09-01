@@ -59,6 +59,16 @@ public class ItemController {
             return ResponseEntity.ok(updatedItemsave);
 
     }
+    @PostMapping("/desactivateItem/{item_id}")
+    public ResponseEntity<?> desactivateItem(@PathVariable int item_id, @RequestBody String string){
+        Item existingItem = service.findById(item_id).get();
+        System.out.println(string + " " + item_id);
+        String comenItem = existingItem.getDescription() + " /* reason for deactivation */: " + string ;
+        existingItem.setState(StateEnum.Inactivo);
+        existingItem.setDescription(comenItem);
+        Item subido = service.save(existingItem);
+        return ResponseEntity.ok(subido);
+    }
     @GetMapping("/getPriceReductions/{item_id}")
     public List<PriceReduction> getPriceReduction(@PathVariable int item_id){
         return priceReductionService.findByItem_id(item_id);
