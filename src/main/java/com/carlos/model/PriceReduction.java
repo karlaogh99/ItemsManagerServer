@@ -2,6 +2,7 @@ package com.carlos.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import java.util.Date;
 
@@ -23,7 +24,9 @@ public class PriceReduction {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "item_id", nullable = false)
-    @JsonBackReference(value ="priceReductions")
+    @JsonBackReference(value = "priceReductions")
+
+
     private Item item;
 
     public int getPriceReduction_id() {

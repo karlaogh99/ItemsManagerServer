@@ -13,18 +13,19 @@ import java.util.List;
 public class PriceReductionServiceImple implements PriceReductionService {
     @Autowired
     private PriceReductionRepository priceReductionRepository;
+
+    @Override
+    public List<PriceReduction> findByItem_id(int item_id) {
+        return priceReductionRepository.findByItem_id(item_id);
+    }
+
     @Override
     public PriceReduction createPriceReduction(PriceReduction priceReduction) {
-        int itemId = priceReduction.getItem().getItem_id();
-        Date startDate = priceReduction.getStartDate();
-        Date endDate = priceReduction.getEndDate();
+        return null;
+    }
 
-        List<PriceReduction> overlappingPriceReductions = priceReductionRepository.findByItemIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(itemId, endDate, startDate);
-        if (!overlappingPriceReductions.isEmpty()) {
-            throw new IllegalArgumentException("An active price reduction already exists for the selected date range.");
-        }
-
-
+    @Override
+    public PriceReduction save(PriceReduction priceReduction) {
         return priceReductionRepository.save(priceReduction);
     }
 }

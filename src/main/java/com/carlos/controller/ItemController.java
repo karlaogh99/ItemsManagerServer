@@ -1,10 +1,7 @@
 package com.carlos.controller;
 
 import com.carlos.model.*;
-import com.carlos.service.ItemService;
-import com.carlos.service.ItemSupplierService;
-import com.carlos.service.SupplierService;
-import com.carlos.service.UserService;
+import com.carlos.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +23,8 @@ public class ItemController {
     UserService userService;
     @Autowired
     SupplierService supplierService;
+    @Autowired
+    PriceReductionService priceReductionService;
     @Autowired
     private ItemSupplierService itemSupplierService;
     @GetMapping("/allItems")
@@ -51,7 +50,6 @@ public class ItemController {
     }
     @PutMapping("/updateitems/{item_id}")
     public ResponseEntity<?> updateItems(@PathVariable int item_id,@RequestBody Item updatedItem ) {
-        try {
             Item existingItem = service.findById(item_id).get();
             existingItem.setDescription(updatedItem.getDescription());
             existingItem.setPrice(updatedItem.getPrice());
@@ -59,11 +57,20 @@ public class ItemController {
             Item updatedItemsave = service.save(existingItem);
 
             return ResponseEntity.ok(updatedItemsave);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error creating item");
-        }
-    }
 
+    }
+    @GetMapping("/getPriceReductions/{item_id}")
+    public List<PriceReduction> getPriceReduction(@PathVariable int item_id){
+        return priceReductionService.findByItem_id(item_id);
+    }
+    @PostMapping("/insertPriceReduction/{item_id}")
+    public ResponseEntity<?> createNewPriceReduction(@PathVariable int item_id, @RequestBody PriceReduction priceReduction){
+        Item it = service.findById(item_id).get();
+        System.out.println(priceReduction.getStartDate());
+        PriceReduction finalPrice = priceReductionService.save(priceReduction);
+        return ResponseEntity.ok(finalPrice);
+
+    }
 
     @PostMapping("/creates")
     public ResponseEntity<?> createNewItem(@RequestBody Item item) {
