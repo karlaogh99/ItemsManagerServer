@@ -26,4 +26,10 @@ public class UserServiceImple implements UserService {
     public Optional<User> findByUsername(String username) {
         return repository.findByUsername(username);
     }
+
+    @Override
+    public void deleteUser(int userId) {
+        User usuarioABorrar = repository.findById(userId).get();
+        repository.delete(usuarioABorrar);
+    }
 }

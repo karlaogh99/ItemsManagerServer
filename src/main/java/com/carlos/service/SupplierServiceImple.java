@@ -21,4 +21,14 @@ public class SupplierServiceImple implements SupplierService{
     public Optional<Supplier> findById(int id) {
         return repository.findById(id);
     }
+
+    @Override
+    public List<Object[]> findCheapestItemsPerSupplier() {
+        return repository.findCheapestItemsPerSupplier();
+    }
+
+    @Override
+    public List<Object[]> suppliers_Associated_with_Items() {
+        return repository.suppliers_Associated_with_Items();
+    }
 }

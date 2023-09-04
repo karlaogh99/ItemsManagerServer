@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface SupplierService {
     public List<Supplier> getAllSupplier();
     Optional<Supplier> findById(int id);
+    List<Object[]> findCheapestItemsPerSupplier();
+    List<Object[]> suppliers_Associated_with_Items();
 }
